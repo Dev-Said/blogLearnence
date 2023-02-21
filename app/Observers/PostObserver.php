@@ -25,15 +25,7 @@ class PostObserver
      */
     public function updated(Post $post): void
     {
-        // $quota = Quota::where('user_id', $post->user_id)->first();
-        // $value = $quota->value + 1;
-        dd('ok');
-        // Quota::updateOrCreate(
-        //     [
-        //         'walue' => $value, 
-        //         'user_id' => $post->user_id
-        //     ]
-        // );
+        // 
     }
 
     /**
