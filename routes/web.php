@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\UserController;
 
 /*
@@ -37,3 +38,5 @@ Route::group(['as' => 'admin.', 'middleware' => ['auth', 'verified', 'admin'], '
     Route::resource('users', UserController::class);
 });
 
+Route::resource('posts', PostController::class);
+Route::get('/posts/{post}/confirm-delete', [PostController::class, 'confirmDelete'])->name('post.confirm-delete');

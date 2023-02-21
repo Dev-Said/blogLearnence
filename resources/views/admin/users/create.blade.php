@@ -14,7 +14,7 @@
 
             @include('fields.text', ['name' => 'name', 'label' => 'Name'])
             @include('fields.email', ['name' => 'email', 'label' => 'Email address', 'placeholder' => 'mail@exemple.com'])
-            @include('fields.select', ['name' => 'role', 'label' => 'Role'])
+            @include('fields.select', ['name' => 'role', 'options' => ['user' => 'User', 'admin' => 'Admin'], 'label' => 'Role'])
             @include('fields.password', ['name' => 'password', 'label' => 'Password'])
             @include('fields.password', ['name' => 'password_confirmation', 'label' => 'Password confirmation'])
 

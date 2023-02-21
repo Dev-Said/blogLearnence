@@ -10,6 +10,7 @@
 </head>
 
 <body class="h-full">
+    @include('layouts.nav')
     @yield('content')
 </body>
 

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
 use App\Services\UserService;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
+use App\Http\Requests\UsersRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\RedirectResponse;
 
@@ -24,7 +26,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        User::findOrFail(58);
         $users = $this->userService->all();
          return view('admin.users.index', [
             'users' => $users
@@ -43,16 +44,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(UsersRequest $request): RedirectResponse
     {
      
-        $validate = $request->validate([
-            "name" => "required|string|min:3|max:255",
-            "email" => "required|email|distinct|max:255",
-            "role" => "required",
-            "password" => "required",
-            'password_confirmation' => 'required|same:password',
-        ]);
+        $validate = $request->validated();
         $this->userService->create($validate);
        
         return redirect()->route('admin.users.index');
@@ -77,13 +72,7 @@ class UserController extends Controller
 
     public function update(User $user, Request $request): RedirectResponse
     {
-        $validate = $request->validate([
-            "name" => "required|string|min:3|max:255",
-            "email" => "required|email|distinct|max:255",
-            "role" => "required",
-            "password" => "required",
-            'password_confirmation' => 'required|same:password',
-        ]);
+        $validate = $request->validated();
         $this->userService->update($user, $validate);
 
         return redirect()->route('admin.users.index');

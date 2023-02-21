@@ -35,5 +35,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'user4',
             'email' => 'user4@a.com',
         ]);
+        
+
+        for($i = 0; $i < 10; $i++) {
+            $title = fake()->sentence(3);
+            \App\Models\Post::factory()->create([
+                'title' => $title,
+                'slug' => str_replace(' ', '-', $title),
+                'content' => fake()->sentence(30),
+                'publish' => false
+            ]);
+        }
+
+
+
+
+
     }
 }
