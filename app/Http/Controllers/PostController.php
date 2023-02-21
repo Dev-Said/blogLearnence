@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Services\PostService;
-use Illuminate\Http\Response;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -16,7 +14,10 @@ class PostController extends Controller
     public function __construct(PostService $postService)
     {
         $this->postService = $postService;
+        $this->authorizeResource(Post::class, 'post');
     }
+
+    
     /**
      * Display a listing of the resource.
      */
@@ -45,7 +46,7 @@ class PostController extends Controller
         $validate = $request->validated();
         $this->postService->create($validate);
        
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('message', 'Votre article a été ajouté.');
     }
 
     /**
@@ -53,7 +54,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('post.show', ['post' => $post]);
     }
 
     /**
@@ -72,7 +73,7 @@ class PostController extends Controller
         $validate = $request->validated();
         $this->postService->update($post, $validate);
 
-         return redirect()->route('posts.index');
+         return redirect()->route('posts.index')->with('message', 'Votre article a été modifié.');
     }
 
     /**
@@ -90,6 +91,6 @@ class PostController extends Controller
     {
         $this->postService->delete($post);
 
-         return redirect()->route('posts.index');
+         return redirect()->route('posts.index')->with('message', 'Votre article a été supprimé.');
     }
 }

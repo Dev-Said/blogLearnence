@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
@@ -17,8 +17,14 @@ class Post extends Model
         'slug',
         'content',
         'publish',
+        'user_id',
     ];
 
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the options for generating the slug.
@@ -34,8 +40,6 @@ class Post extends Model
             ->doNotGenerateSlugsOnUpdate()
             ->preventOverwrite();
     }
-
-
 
      /**
      * Get the route key for the model.

@@ -13,6 +13,10 @@
                         @admin
                             <a href="{{ route('admin.users.index') }}" class="{{ Route::is('admin.users.*') ? 'bg-indigo-700 ' : 'hover:bg-indigo-500 hover:bg-opacity-75' }} text-white px-3 py-2 rounded-md text-sm font-medium">Users</a>
                         @endadmin
+
+                        <div class="ml-10 hidden space-x-8 lg:block">
+                            <a href="{{ route('posts.index') }}" class="text-base font-medium text-white hover:text-indigo-50">Articles</a>
+                        </div>
                         
                         
                         {{-- <a href="#" class="text-white hover:bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium">Projects</a>

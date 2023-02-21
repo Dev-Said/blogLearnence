@@ -39,11 +39,12 @@ class DatabaseSeeder extends Seeder
 
         for($i = 0; $i < 10; $i++) {
             $title = fake()->sentence(3);
-            \App\Models\Post::factory()->create([
+            \App\Models\Post::create([
                 'title' => $title,
                 'slug' => str_replace(' ', '-', $title),
                 'content' => fake()->sentence(30),
-                'publish' => false
+                'publish' => false,
+                'user_id' => 1
             ]);
         }
 

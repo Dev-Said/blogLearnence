@@ -19,7 +19,8 @@ class PostService
      */
     public function create(array $data): Post
     {       
-        return Post::create($data);
+  
+        return Post::create($data + ["user_id" => auth()->id()]);
     }
 
     public function update(Post $post, array $data): Post
