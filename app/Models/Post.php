@@ -52,4 +52,17 @@ class Post extends Model
     }
 
 
+    /**
+     * Scope a query to only include owner post.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBelongsToUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+
+
+
 }

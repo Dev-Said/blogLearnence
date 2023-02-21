@@ -11,7 +11,7 @@ class PostService
      */
     public function all()
     {
-        return Post::paginate(5);
+        return Post::belongsToUser(auth()->id())->paginate(2);
     }
 
     /**
