@@ -28,6 +28,7 @@
                             <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Slug</th>
                             <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Plublished</th>
                             <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">User Id</th>
+                            <th scope="col" class="py-3.5 px-3 text-left text-sm font-semibold text-gray-900">Date</th>
                             <th scope="col" class="relative py-3.5 pl-3 pr-6 sm:pr-0">
                                 <span class="sr-only">Edit</span>
                             </th>
@@ -45,6 +46,7 @@
                             <td class="whitespace-nowrap py-4 pl-6 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{ $post->slug }}</td>
                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $post->publish }}</td>
                             <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $post->user_id }}</td>
+                            <td class="whitespace-nowrap py-4 px-3 text-sm text-gray-500">{{ $post->created_at }}</td>
                             @can('update', $post)
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-6 text-right text-sm font-medium sm:pr-0">
                                     <a href="{{ route('posts.edit', ['post' => $post->slug]) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
