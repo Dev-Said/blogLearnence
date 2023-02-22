@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Quota extends Model
 {
@@ -18,4 +19,14 @@ class Quota extends Model
         'max',
         'user_id',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function limitQuotas() {
+        $usage = ($this->value / $this->max) * 100;
+        return $usage > 90;
+    }
 }

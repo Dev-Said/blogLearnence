@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Quota;
 use Illuminate\Console\Command;
 use App\Mail\WarningPostsMailable;
 use Illuminate\Support\Facades\Mail;
@@ -27,6 +28,15 @@ class QuotasWarinig extends Command
      */
     public function handle(): void
     {
-        Mail::to('recipient@example.com')->send(new WarningPostsMailable());
+        $quota = Quota::all();
+
+        $users = $quota->filter(function($rec) {
+            return $rec->limitQuotas();
+        })->map(function($rec) {
+            return $rec->user;
+        });
+
+  
+        Mail::to($users)->send(new WarningPostsMailable());
     }
 }

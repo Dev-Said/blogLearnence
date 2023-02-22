@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Quota;
 use App\Services\PostService;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Http\RedirectResponse;
@@ -43,9 +44,10 @@ class PostController extends Controller
      */
     public function store(PostsRequest $request): RedirectResponse
     {
+        abort_if(auth()->user()->quota->limitQuotas(),401, 'Quotas dépassé');
         $validate = $request->validated();
         $this->postService->create($validate);
-       
+     
         return redirect()->route('posts.index')->with('message', 'Votre article a été ajouté.');
     }
 
