@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Quota;
 use Illuminate\Console\Command;
-use App\Mail\WarningPostsMailable;
+use App\Mail\WarningQuotasPost;
 use Illuminate\Support\Facades\Mail;
 
 class QuotasWarinig extends Command
@@ -37,6 +37,6 @@ class QuotasWarinig extends Command
         });
 
   
-        Mail::to($users)->send(new WarningPostsMailable());
+        Mail::to($users)->send(new WarningQuotasPost());
     }
 }

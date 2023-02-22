@@ -8,10 +8,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
 
-
-class WarningPostsMailable extends Mailable
+class WarningQuotasPost extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,8 +27,7 @@ class WarningPostsMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('me@example.com', 'said'),
-            subject: 'Warning Posts Quotas',
+            subject: 'Warning Quotas Post',
         );
     }
 
@@ -40,7 +37,7 @@ class WarningPostsMailable extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.warning_posts_quotas',
+            markdown: 'emails.warning-quotas-post',
         );
     }
 

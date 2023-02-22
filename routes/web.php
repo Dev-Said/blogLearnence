@@ -18,6 +18,9 @@ use App\Http\Controllers\Admin\UserController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+Route::get('/home', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::get('/logout', function () {
     return view('auth.logout');

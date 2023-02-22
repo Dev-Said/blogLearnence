@@ -13,11 +13,16 @@ class PostObserver
     public function created(Post $post): void
     {
         $quota = Quota::where('user_id', $post->user_id)->first();
-        $value = is_null($quota) ? 1 : $quota->increment('value');
-        Quota::updateOrCreate(
-            ['user_id' => $post->user_id],
-            ['value' => $value]
-        );
+        if (is_null($quota)) {
+            Quota::create([
+                'user_id' => $post->user_id,
+                'value' => 1
+            ]);
+        } else {
+            $quota->increment('value');
+        }
+
+
     }
 
     /**
