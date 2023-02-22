@@ -7,6 +7,7 @@ use App\Models\Quota;
 use App\Services\PostService;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cache;
 use App\Events\NotifyQuotasReachedEvent;
 use App\Events\NotifyAdminQuotasReachedEvent;
 
@@ -17,6 +18,7 @@ class PostController extends Controller
     public function __construct(PostService $postService)
     {
         $this->postService = $postService;
+
         $this->authorizeResource(Post::class, 'post');
     }
 
@@ -26,9 +28,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = $this->postService->all();
+        $posts =  $this->postService->all();
+               
         return view('post.index', [
-            'posts' => $posts
+            'posts' => $posts->paginate(5)
         ]);
     }
 
@@ -79,7 +82,7 @@ class PostController extends Controller
         $validate = $request->validated();
         $this->postService->update($post, $validate);
 
-         return redirect()->route('posts.index')->with('message', 'Votre article a été modifié.');
+        return redirect()->route('posts.index')->with('message', 'Votre article a été modifié.');
     }
 
     /**

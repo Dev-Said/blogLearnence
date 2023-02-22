@@ -3,15 +3,25 @@
 namespace App\Services;
 
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class PostService
 {
+    private string $keyCachePost;
+
+    public function __construct() {
+        $this->keyCachePost = 'posts-' . auth()->id(); 
+    }
     /**
      * Display a listing of the resource.
      */
     public function all()
     {
-        return Post::belongsToUser(auth()->id())->paginate(2);
+        return Cache::remember($this->keyCachePost, now()->addMinutes(60), function () {
+            return Post::belongsToUser(auth()->id())->get();
+        });
+       
     }
 
     /**
@@ -19,20 +29,29 @@ class PostService
      */
     public function create(array $data): Post
     {       
-  
-        return Post::create($data + ["user_id" => auth()->id()]);
+        $post = Post::create($data + ["user_id" => auth()->id()]);
+
+        Cache::forget($this->keyCachePost);
+
+        return $post;
     }
 
     public function update(Post $post, array $data): Post
     {
         $post->update($data);
 
+        Cache::forget($this->keyCachePost);
+
         return $post->fresh();
     }
 
     public function delete(Post $post): bool
     {
-        return $post->delete();
+        $delete = $post->delete();
+
+        Cache::forget($this->keyCachePost);
+        
+        return $delete;
     }
 
 }
