@@ -7,6 +7,8 @@ use App\Models\Quota;
 use App\Services\PostService;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Http\RedirectResponse;
+use App\Events\NotifyQuotasReachedEvent;
+use App\Events\NotifyAdminQuotasReachedEvent;
 
 class PostController extends Controller
 {
@@ -47,7 +49,9 @@ class PostController extends Controller
         !is_null(auth()->user()->quota) && abort_if(auth()->user()->quota->limitQuotas(),401, 'Quotas dépassé');
         $validate = $request->validated();
         $this->postService->create($validate);
-     
+
+        event(new NotifyQuotasReachedEvent(auth()->user()));
+
         return redirect()->route('posts.index')->with('message', 'Votre article a été ajouté.');
     }
 

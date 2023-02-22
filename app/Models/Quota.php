@@ -20,6 +20,11 @@ class Quota extends Model
         'user_id',
     ];
 
+    protected $casts = [
+        'value' => 'integer',
+        'max' => 'integer',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -31,6 +36,6 @@ class Quota extends Model
     }
 
     public function limitQuotasReached() {
-       return $this->value === $this->max;
+       return $this->value >= $this->max;
     }
 }

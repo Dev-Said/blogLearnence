@@ -28,10 +28,6 @@ class PostObserver
             $quota->increment('value');
         }
 
-        $admin = User::where('role', 'admin')->first();
-        if ($admin && $quota->limitQuotasReached()) {
-            $admin->notify(new NotifyQuotasReached()); 
-        }  
     }
 
     /**
