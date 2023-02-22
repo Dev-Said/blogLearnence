@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<div class="w-[70%] px-8 mt-10 mx-auto">
+<div class="w-[70%] min-h-full px-8 mt-10 mx-auto">
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
             <h1 class="text-xl font-semibold text-gray-900">Articles</h1>
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full max-w-6xl absolute bottom-10">
+    <div class="w-[70%] absolute bottom-10 ml-[-32px]">
         {{ $posts->links() }}
     </div>
 </div>

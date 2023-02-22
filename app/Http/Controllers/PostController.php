@@ -44,7 +44,7 @@ class PostController extends Controller
      */
     public function store(PostsRequest $request): RedirectResponse
     {
-        abort_if(auth()->user()->quota->limitQuotas(),401, 'Quotas dépassé');
+        !is_null(auth()->user()->quota) && abort_if(auth()->user()->quota->limitQuotas(),401, 'Quotas dépassé');
         $validate = $request->validated();
         $this->postService->create($validate);
      

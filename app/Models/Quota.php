@@ -29,4 +29,8 @@ class Quota extends Model
         $usage = ($this->value / $this->max) * 100;
         return $usage > 90;
     }
+
+    public function limitQuotasReached() {
+       return $this->value === $this->max;
+    }
 }

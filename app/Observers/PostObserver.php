@@ -3,12 +3,18 @@
 namespace App\Observers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Quota;
+use App\Notifications\NotifyQuotasReached;
+
+
+
 
 class PostObserver
 {
     /**
      * Handle the Post "created" event.
+     * increment or create first value
      */
     public function created(Post $post): void
     {
@@ -22,7 +28,10 @@ class PostObserver
             $quota->increment('value');
         }
 
-
+        $admin = User::where('role', 'admin')->first();
+        if ($admin && $quota->limitQuotasReached()) {
+            $admin->notify(new NotifyQuotasReached()); 
+        }  
     }
 
     /**
