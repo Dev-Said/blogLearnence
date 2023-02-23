@@ -10,7 +10,8 @@
             {!! Form::model($post, ['method' => 'put', 'route' => ['posts.update', $post->slug]]) !!}
             <div class="space-y-6">
 
-                @include('fields.text', ['name' => 'title', 'label' => 'Titre'])
+                @include('fields.text', ['name' => 'title_lang[fr]', 'label' => 'Titre Fr'])
+                @include('fields.text', ['name' => 'title_lang[en]', 'label' => 'Titre En'])
                 @include('fields.textarea', ['name' => 'content', 'label' => 'Texte'])
                 @include('fields.select', ['name' => 'publish', 'options' => [false => 'False', true => 'True'], 'label' => 'Publier'])
 

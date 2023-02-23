@@ -9,19 +9,22 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 
 class Post extends Model
 {
-    use HasFactory, HasSlug, SoftDeletes;
+    use HasFactory, HasSlug, SoftDeletes, HasTranslations;
 
-       protected $fillable = [
+    protected $fillable = [
         'title',
         'slug',
         'content',
         'publish',
         'user_id',
     ];
+
+    public $translatable = ['title', 'content'];
 
 
     public function user(): BelongsTo

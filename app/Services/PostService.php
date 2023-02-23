@@ -24,12 +24,20 @@ class PostService
        
     }
 
+    public function updateTitle(array $data): array
+    {
+        $data['title'] = $data['title_lang'];
+        unset($data['title_lang']);
+
+        return $data;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function create(array $data): Post
     {       
-        $post = Post::create($data + ["user_id" => auth()->id()]);
+        $post = Post::create($this->updateTitle($data) + ["user_id" => auth()->id()]);
 
         Cache::forget($this->keyCachePost);
 
@@ -38,7 +46,7 @@ class PostService
 
     public function update(Post $post, array $data): Post
     {
-        $post->update($data);
+        $post->update($this->updateTitle($data));
 
         Cache::forget($this->keyCachePost);
 

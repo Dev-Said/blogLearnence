@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Post;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\LangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +44,10 @@ Route::group(['as' => 'admin.', 'middleware' => ['auth', 'verified', 'admin'], '
     Route::resource('users', UserController::class);
 });
 
-Route::resource('posts', PostController::class);
+
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('can:create-post-quota');
+Route::resource('posts', PostController::class)->except(['create']);
+
 Route::get('/posts/{post}/confirm-delete', [PostController::class, 'confirmDelete'])->name('post.confirm-delete');
+
+Route::get('/test/{locale}', [LangController::class, 'changeLocale'])->name('change-locale');

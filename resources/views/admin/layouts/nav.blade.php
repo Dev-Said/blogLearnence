@@ -27,6 +27,10 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <a href="{{ route('change-locale', 'fr') }}">Fr</a>
+                <a href="{{ route('change-locale', 'en') }}">En</a>
+            </div>
             <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">
                     <button type="button" class="rounded-full bg-indigo-600 p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">

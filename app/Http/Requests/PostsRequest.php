@@ -22,7 +22,8 @@ class PostsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required|string|min:3|max:255",
+            "title_lang.en" => "required_without:title_lang.fr",//"required|string|min:3|max:255",
+            "title_lang.fr" => "required_without:title_lang.en",//"required|string|min:3|max:255",
             "content" => "required|string",
             "publish" => "required|bool",
         ];

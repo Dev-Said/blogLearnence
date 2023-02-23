@@ -13,7 +13,7 @@ class Handler extends ExceptionHandler
     {
         if($e instanceof ModelNotFoundException)
         {
-            abort(404, "L'utilisateur n'éxiste pas");
+            // abort(404, "L'utilisateur n'éxiste pas");
         }
 
         return parent::render($request, $e);

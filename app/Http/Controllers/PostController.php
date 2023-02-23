@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Services\PostService;
 use App\Http\Requests\PostsRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use App\Events\NotifyQuotasReachedEvent;
 
@@ -28,7 +29,7 @@ class PostController extends Controller
     {
         $posts =  $this->postService->all();
                
-        return view('post.index', [
+        return view('posts.index', [
             'posts' => $posts->paginate(5)
         ]);
     }
@@ -38,9 +39,14 @@ class PostController extends Controller
      */
     public function create()
     {
+        // if (! Gate::allows('create-post')) {
+        //     abort(403);
+        // }
+
         $post = new Post;
         $post->title = '';
-        return view('post.create', ['post' => $post]);
+     
+        return view('posts.create', ['post' => $post]);
     }
 
     /**
@@ -62,7 +68,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post.show', ['post' => $post]);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -70,7 +76,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('post.edit', ['post' => $post]);
+        $post->title_lang = $post->getTranslations('title'); 
+
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -89,7 +97,7 @@ class PostController extends Controller
      */
     public function confirmDelete(Post $post)
     {
-        return view('post.confirm-delete', ['post' => $post]);
+        return view('posts.confirm-delete', ['post' => $post]);
     }
 
     /**

@@ -6,7 +6,7 @@
             <h1 class="text-xl font-semibold text-gray-900">Articles</h1>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            @can('create', App\Models\Post::class)
+            @can('create-post-quota')
             <a href="{{ route('posts.create') }}">
                 <button type="button" class="block rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Ajouter un article</button>
             </a>

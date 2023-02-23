@@ -10,6 +10,10 @@
                     <a href="{{ route('posts.index') }}" class="text-base font-medium text-white hover:text-indigo-50">Articles</a>
                 </div>
             </div>
+            <div>
+                <a href="{{ route('change-locale', 'fr') }}">Fr</a>
+                <a href="{{ route('change-locale', 'en') }}">En</a>
+            </div>
             @auth
             <div class="ml-10 space-x-4">
                 <a href="{{ route('admin.dashboard') }}" class="inline-block rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-base font-medium text-white hover:bg-opacity-75">{{ auth()->user()->name }}</a>
