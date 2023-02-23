@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Quota;
 use App\Services\PostService;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Cache;
 use App\Events\NotifyQuotasReachedEvent;
-use App\Events\NotifyAdminQuotasReachedEvent;
+
 
 class PostController extends Controller
 {
